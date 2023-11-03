@@ -40,10 +40,6 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
 
     const response = await fetch('https://biracjancare-home-server.onrender.com/hospital/login', {
         method: 'POST',
@@ -55,11 +51,12 @@ function Login() {
     });
 
     const content = await response.json();
-    console.log(content);
 
     if(content.success) {
       console.log("Login successful");
-      nav('/dashboard', { state: { url: content.hospital.connectionUrl } });
+      let hospital = content.hospital;
+      // let hospital = { name: content.hospital.name, connectionUrl: content.hospital.connectionUrl };
+      nav('/dashboard', { state: hospital });
       
     } else {
       console.log("Login failed");
