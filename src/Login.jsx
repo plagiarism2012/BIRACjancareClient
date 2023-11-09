@@ -53,12 +53,14 @@ function Login() {
     const content = await response.json();
 
     if(content.success) {
+      const authToken = content.token ;
+      localStorage.setItem('authToken', authToken);
       console.log("Login successful");
       let hospital = content.hospital;
-      // let hospital = { name: content.hospital.name, connectionUrl: content.hospital.connectionUrl };
       nav('/dashboard', { state: hospital });
       
     } else {
+      alert("Use correct credentials");
       console.log("Login failed");
     }
   };

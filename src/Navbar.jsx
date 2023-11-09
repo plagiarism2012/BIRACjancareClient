@@ -16,6 +16,11 @@ function Navbar() {
   const nav = useNavigate();
 
   function handleClick() {
+    nav('/login');
+  }
+  
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
     nav('/');
   }
 
@@ -35,7 +40,11 @@ function Navbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <a className="Logo" href="/">Birac Jan Care</a>
           </Typography>
-          <Button onClick={handleClick} color="inherit">Login</Button>
+          {!localStorage.getItem('authToken') ? (
+            <Button onClick={handleClick} color="inherit">Login</Button>
+            ) : (
+            <Button onClick={handleLogout} color="inherit">Logout</Button>
+            )}
         </Toolbar>
       </AppBar>
     </Box>
